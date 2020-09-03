@@ -1,4 +1,4 @@
-## Creating Kuberbetes cluster on phy. host from ansible playbook: 
+## Creating Kubernetes cluster on physical host from ansible playbook: 
 
 Usage: 
 
