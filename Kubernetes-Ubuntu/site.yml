@@ -2,7 +2,7 @@
   hosts: main 
   tasks:
     - include_vars: ubuntu.yaml
-      tags: inv,delete,create
+      tags: inv,delete,create,kube
     
     - import_role:
         name: create_br_interface 
@@ -33,9 +33,14 @@
       register: _s1
       tags: inv,create
 
+    - name: create kubernetes cluster
+      shell: "cd {{ kube_inst_path }}; {{ kube_inst_path }}/wrapper.sh"
+      tags: create,inv,kube
+      register: kube_playbook
+
     - debug:
-        msg: "{{ _s1.stdout_lines }}"
-      tags: inv,create
+            msg: "{{ _s1.stdout_lines }} \n \n kube intall: \n {{ kube_playbook.stdout_lines}}"
+      tags: inv,create,kube
 
     - import_role:
         name: delete_env
