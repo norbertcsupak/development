@@ -1,0 +1,8 @@
+- virt_net:
+    command: define
+    name: "{{ br_name }}"
+    xml: '{{ lookup("template", "nat_br.xml.j2") }}'
+
+- virt_net:
+    state: active
+    name: "{{ br_name }}"

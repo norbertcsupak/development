@@ -1,0 +1,7 @@
+- name: push base vm image to hypervisor tmp dir 
+  copy:
+   src: "{{ VM_path }}"
+   dest: /tmp/
+   owner: qemu
+   group: qemu
+   mode: u=rw,g=r,o=r

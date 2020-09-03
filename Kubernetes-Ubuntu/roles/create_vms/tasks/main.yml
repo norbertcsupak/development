@@ -1,0 +1,30 @@
+- name: Template a user-data file to remote host 
+  template:
+    src: user-data.j2
+    dest: "{{ VM_location }}/user-data"
+
+- name: Template a meta-data file to remote host
+  template:
+    src: meta-data.j2
+    dest: "{{ VM_location }}/meta-data-{{ item }}"
+  loop: "{{ list_of_nodes }}"
+
+- name: create VMs
+  shell: "cd {{ VM_location }} ; cp meta-data-{{ item }} meta-data ; genisoimage -output {{ item }}init.iso -volid cidata -joliet -rock user-data meta-data;
+    virt-install --name {{ item }} \
+    --description 'Atomic Host Bionic' \
+    --ram 4096 \
+    --vcpus 2 \
+    --disk path={{ VM_location }}/{{ item }}.img \
+    --os-type linux \
+    --cpu host-passthrough \
+    --os-variant ubuntu18.04 \
+    --network bridge={{ br_name }} \
+    --graphics vnc,listen=127.0.0.1 \
+    --cdrom {{ VM_location }}/{{ item }}init.iso \
+    --noautoconsole"
+  loop: "{{ list_of_nodes }}"
+
+- name: wait 1 mins for  getting  IP
+  pause:
+    minutes: 1

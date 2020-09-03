@@ -1,0 +1,38 @@
+- name: load vars
+  hosts: main 
+  tasks:
+    - include_vars: ubuntu.yaml
+      tags: inv,delete,create
+    
+    - import_role:
+        name: create_br_interface 
+      tags: create 
+
+    - import_role:
+        name: copy_raw_images
+      tags: create
+
+    - import_role:
+        name: prepare_vms
+      tags: create
+
+    - import_role:
+        name: create_vms
+      tags: create 
+
+    - import_role:
+        name: make_inventory
+      tags: inv,create 
+
+    - name: print virsh vm list
+      shell: virsh list
+      register: _s1
+      tags: inv,create
+
+    - debug:
+        msg: "{{ _s1.stdout_lines }}"
+      tags: inv,create
+
+    - import_role:
+        name: delete_env
+      tags: delete

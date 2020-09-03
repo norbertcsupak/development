@@ -1,0 +1,7 @@
+- name: Delete enviroment phase 1 
+  shell: virsh destroy  {{ item }} ; virsh undefine {{ item }} 
+  loop: "{{ list_of_nodes }}"
+  ignore_errors: yes
+
+- name: Delete enviroment phase 2
+  shell: rm -rf {{ VM_location }}/*

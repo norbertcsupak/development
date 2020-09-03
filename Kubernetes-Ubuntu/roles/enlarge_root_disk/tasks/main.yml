@@ -1,0 +1,3 @@
+- name: Enlarge root disk 
+  shell: ansible -i {{ VM_location }}/inventory_file -m shell -a 'docker-storage-setup' all
+  ignore_errors: yes

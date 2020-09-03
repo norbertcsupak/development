@@ -1,0 +1,47 @@
+#- name: Copy a cloudini files to remote host  
+#  copy:
+#    src: "/tmp/{{ image_name }}"
+#    dest: "{{ VM_location }}/{{ item }}-disk1.qcow2"
+#    remote_src: yes
+#    owner: qemu
+#    group: qemu
+#    mode: u=rw,g=r,o=r
+#  loop: "{{ list_of_nodes }}"
+
+- name: Template a user-data file to remote host 
+  template:
+    src: user-data.j2
+    dest: "{{ VM_location }}/user-data"
+
+- name: Template a meta-data file to remote host
+  template:
+    src: meta-data.j2
+    dest: "{{ VM_location }}/meta-data-{{ item }}"
+  loop: "{{ list_of_nodes }}"
+
+  #- name: Ceate cloudinit iso file
+  #  shell: "cd {{ VM_location }} && genisoimage -output {{ item }}_init.iso -volid cidata -joliet -rock user-data meta-data-{{ item }}"
+  #loop: "{{ list_of_nodes }}"
+
+- name: create VMs
+  shell: "cd {{ VM_location }} && cp meta-data-{{ item }} meta-data && genisoimage -output {{ item }}_init.iso -volid cidata -joliet -rock user-data meta-data &&
+    virt-install --name {{ item }} \
+    --description 'Atomic Host  Bionic' \
+    --ram 4096 \
+    --vcpus 2 \
+    --disk path={{ VM_location }}/{{ item }}-disk1.qcow2 \
+    --os-type linux \
+    --os-variant centos7.0 \
+    --network bridge=br10 \
+    --graphics vnc,listen=127.0.0.1 \
+    --cdrom {{ VM_location }}/{{ item }}_init.iso \
+    --noautoconsole"
+  loop: "{{ list_of_nodes }}"
+
+- name: wait 2 mins for  getting  IP
+  pause:
+    minutes: 2
+
+- name: Attaching second disk
+  shell: virsh attach-disk {{ item }} --source {{ VM_location }}/{{ item }}-disk2 --target vdb --targetbus virtio --persistent
+  loop: "{{ list_of_nodes }}"

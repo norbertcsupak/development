@@ -1,0 +1,13 @@
+- name: Copy img file on the remote machine to VM folder
+  copy:
+    src: "/tmp/{{ image_name }}"
+    dest: "{{ VM_location }}/{{ item }}.img"
+    remote_src: yes
+    owner: qemu
+    group: qemu
+    mode: u=rw,g=r,o=r
+  loop: "{{ list_of_nodes }}"
+
+- name:  Enlarge  disks to {{ disk_size }}
+  shell: qemu-img resize {{ VM_location }}/{{ item }}.img {{ disk_size }}
+  loop: "{{ list_of_nodes }}"

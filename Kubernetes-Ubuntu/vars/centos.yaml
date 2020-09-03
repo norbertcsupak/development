@@ -1,0 +1,10 @@
+br_name: br10
+VM_path: "/home/norbert/Downloads/CentOS-Atomic-Host-7-GenericCloud.qcow2.gz"
+list_of_nodes:
+  - node_c01
+  - node_c02
+  - node_c03
+VM_location: "/var/kvm/images/VMs"
+image_name: "CentOS-Atomic-Host-7-GenericCloud.qcow2"
+vncport: 5900
+second_disk_size: "8G"

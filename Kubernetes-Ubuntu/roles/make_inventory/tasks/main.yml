@@ -1,0 +1,15 @@
+- name: Make inventory of server IPs 
+  shell: MAC=$(virsh domiflist {{ item }} | awk '{ print $5 }' | tail -2 | head -1) && arp -a | grep $MAC | awk '{ print $2 }' | sed 's/[()]//g' 
+  loop: "{{ list_of_nodes }}"
+  register: _servers
+
+- name: Write Inventory to  file back  to local
+  template: src=hostFile.j2 dest=inventory_file
+  delegate_to: localhost
+
+- name: Write Inventory file to remote host 
+  template: src=hostFile.j2 dest={{ VM_location }}/inventory_file
+
+- debug:
+    msg: "{{ _servers.results }}"
+

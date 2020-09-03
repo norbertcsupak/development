@@ -1,0 +1,12 @@
+br_name: br10
+VM_path: "/home/norbert/Downloads/ubuntu-18.04-server-cloudimg-amd64.img"
+list_of_nodes:
+  - master 
+  - node01
+  - node02
+  - node03
+  - node04
+VM_location: "/var/kvm/images/VMs"
+image_name: "ubuntu-18.04-server-cloudimg-amd64.img"
+vncport: 5900
+disk_size: "15G"
