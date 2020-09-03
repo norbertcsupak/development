@@ -5,9 +5,11 @@ ansible_ssh_user=ubuntu
 ansible_ssh_private_key_file=/home/norbert/.ssh/id_rsa
 ansible_become=True
 
-[linux]
-master  ansible_host=192.168.30.112 
-node01  ansible_host=192.168.30.142 
-node02  ansible_host=192.168.30.89 
-node03  ansible_host=192.168.30.125 
-node04  ansible_host=192.168.30.171 
+[masters]
+master ansible_host=192.168.30.129 
+
+[workers]
+node01 ansible_host=192.168.30.196
+node02 ansible_host=192.168.30.86
+node03 ansible_host=192.168.30.133
+node04 ansible_host=192.168.30.197

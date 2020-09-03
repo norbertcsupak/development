@@ -8,7 +8,7 @@
   delegate_to: localhost
 
 - name: Write Inventory file to remote host 
-  template: src=hostFile.j2 dest={{ VM_location }}/inventory_file
+  template: src=hostFile.j2 dest={{ kube_inst_path }}/inventory_file
 
 - debug:
     msg: "{{ _servers.results }}"

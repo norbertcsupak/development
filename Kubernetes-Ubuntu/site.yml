@@ -21,8 +21,12 @@
       tags: create 
 
     - import_role:
-        name: make_inventory
+        name: copy_kube_files
       tags: inv,create 
+
+    - import_role:
+        name: make_inventory
+      tags: inv,create
 
     - name: print virsh vm list
       shell: virsh list

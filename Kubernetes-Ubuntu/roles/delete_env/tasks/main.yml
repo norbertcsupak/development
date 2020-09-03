@@ -5,3 +5,7 @@
 
 - name: Delete enviroment phase 2
   shell: rm -rf {{ VM_location }}/*
+
+- virt_net:
+    command: destroy
+    name: "{{ br_name }}"

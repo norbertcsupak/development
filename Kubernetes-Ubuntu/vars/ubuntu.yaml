@@ -10,3 +10,4 @@ VM_location: "/var/kvm/images/VMs"
 image_name: "ubuntu-18.04-server-cloudimg-amd64.img"
 vncport: 5900
 disk_size: "15G"
+kube_inst_path: "/root/kube-cluster"
