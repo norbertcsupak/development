@@ -1,0 +1,13 @@
+- name: Create a directory if it does not exist
+  file:
+    path: "{{ kube_inst_path }}"
+    state: directory
+    mode: '0755'
+
+- name: push base kube install palybooks on home directroy of root 
+  copy:
+    src: kube-cluster/
+    dest: "{{ kube_inst_path }}" 
+    # owner: qemu
+    #group: qemu
+    #mode: u=rw,g=r,o=r
