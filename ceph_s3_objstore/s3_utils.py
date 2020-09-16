@@ -102,59 +102,6 @@ def list_instances(project):
             )))
     return
 
-@instances.command('stop')
-@click.option('--project',default=None, help="only instances for projects eg: tag Project:<name>")
-def stop_instances(project):
-    "Stop EC2 instances"
-
-    instances=filter_instances(project)
-
-    for i in instances:
-        print("Stopping {0} ...".format(i.id))
-        i.stop()
-
-    return
-
-@instances.command('start')
-@click.option('--project',default=None, help="only instances for projects eg: tag Project:<name>")
-def start_instances(project):
-    "Start EC2 instances"
-
-    instances=filter_instances(project)
-
-    for i in instances:
-        print("Starting {0} ...".format(i.id))
-        i.start()
-
-    return
-
-@instances.command('snapshot_create')
-@click.option('--project',default=None, help="only instances for projects eg: tag Project:<name>")
-def create_snapshot(project):
-    "Create snapshot of EC2 instances"
-
-    instances=filter_instances(project)
-
-    for i in instances:
-        for v in i.volumes.all():
-            print("Creating  snapshot of {0}".format(v.id))
-            v.create_snapshot(Description="create snapshot by snapsotalyzer3000")
-    return
-
-@instances.command('snapshot_delete')
-@click.option('--project',default=None, help="only instances for projects eg: tag Project:<name>")
-def delete_snapshot(project):
-    "delete snapshot of EC2 instances"
-
-    instances=filter_instances(project)
-
-    for i in instances:
-        for v in i.volumes.all():
-            for s in v.snapshots.all():
-                print("Deleting  snapshot of {0}".format(s.id))
-                s.delete()
-    return
 
 if __name__ == '__main__':
     cli()
-
