@@ -2,10 +2,15 @@ import json
 import sys
 import random
 import requests
+import argparse
+
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=' send messages')
+    parser.add_argument('--message', required=True)
+    args = parser.parse_args()
     url = "http://127.0.0.1:5000/api/webhook"
-    message = ("A Sample Message")
-    title = (f"New Incoming Message from norbert :zap:")
+    message = (args.message)
+    title = (f"New Incoming Message from norbert")
     hook_data = {
         "username": "NotificationBot",
         "icon_emoji": ":satellite:",
@@ -16,7 +21,6 @@ if __name__ == '__main__':
                     {
                         "title": title,
                         "value": message,
-                        "short": "false",
                     }
                 ]
             }
