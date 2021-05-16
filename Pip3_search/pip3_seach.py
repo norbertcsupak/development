@@ -1,18 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Nov  11 17:40:03 2020
-
-@author: Pietro
-
-"""
-
 import sys
 import subprocess
 from pypi_simple import PyPISimple
 
 def simple():
-    package=input('\npackage to be checked ')
+    package=input('\nPackage to be checked: ')
     try:
         with PyPISimple() as client:
             requests_page = client.get_project_page(package)
