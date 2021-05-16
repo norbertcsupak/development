@@ -1,6 +1,12 @@
 import sys
+import pip
 import subprocess
-from pypi_simple import PyPISimple
+
+def install_package(package):
+    if hasattr(pip, 'main'):
+        pip.main(['install',package])
+    else:
+        pip._internal.main(['install',package])
 
 def simple():
     package=input('\nPackage to be checked: ')
@@ -24,4 +30,6 @@ def simple():
 if __name__ == '__main__': 
   #implement  pip as subprocess 
   #subprocess.check_call([sys.executable, '-m', 'pip', 'install','pypi_simple' ])
+  install_package('pypi_simple')
+  from pypi_simple import PyPISimple
   simple()
