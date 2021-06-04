@@ -1,14 +1,19 @@
 import socket
 import tqdm
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='file receiver ')
+parser.add_argument('--port',type=int, help='receiver port for incoming calls ',required=True)
+args = parser.parse_args()
 
 # server IP
-SERVER_HOST_IP="0.0.0.0"
-SERVER_PORT=5001
+SERVER_HOST_IP = "0.0.0.0"
+SERVER_PORT = args.port
 
 #define the buffer suze
 BUFFER_SIZE=4096
-SEPATATOR="<SEPARATOR>"
+SEPARATOR="<SEPARATOR>"
 
 #create socket
 s = socket.socket()
