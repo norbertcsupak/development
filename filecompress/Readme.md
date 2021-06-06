@@ -2,7 +2,7 @@
 
 ### Usage for compress : 
 
-````
+```
 python targz.py comp -h
 usage: targz.py comp [-h] -f FOLDER -n NAME
 
