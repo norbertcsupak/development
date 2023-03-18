@@ -13,8 +13,10 @@ import (
 
 var (
 	externalIP = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "external_ip_addr: " + hName(),
-	})
+		Name: "external_ip_addr",
+		Help: hName(),
+	},
+	)
 )
 
 func init() {
@@ -33,14 +35,8 @@ func ExternalIP() (string, error) {
 	resp, err := http.Get("http://checkip.amazonaws.com/")
 	body, err := ioutil.ReadAll(resp.Body)
 	bodyString := string(body)
-	if err != nil {
-		// Handle Error
-	}
 	defer resp.Body.Close()
 
-	if err != nil {
-		return resp.Status, err
-	}
 	return bodyString, err
 }
 
