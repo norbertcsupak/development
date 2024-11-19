@@ -1,0 +1,42 @@
+---
+  network_name: kube
+  br_interface: virbr1
+
+  env_path:
+    - /mnt/var/lib/libvirt/images/base
+    - /mnt/var/lib/libvirt/images/instances
+    - /mnt/var/lib/libvirt/config
+  
+  base_path: /mnt/var/lib/libvirt/images/base
+  instance_path: /mnt/var/lib/libvirt/images/instances
+  config_path: /mnt/var/lib/libvirt/config
+
+  base_image_file: /mnt/var/lib/libvirt/images/base/ubuntu-22.04-server.qcow2
+  base_img: ubuntu-22.04-server.qcow2
+
+  ssh_user: norbert
+  ssh_pub_key: "AAAAB3NzaC1yc2EAAAADAQABAAABgQClN3GCfZVyrNGfCMhaipQhDbIa/ApNlbksp4GTEXS4PRNPeRtuW7jocR5y3zi313nCUjqoQEMRvTNDbNdpsrMeFylmqfDFMVqahPT++mIBpQ16S6Qf+ED8p4jgRpCtdQ/15dIMxQyszjEYRWhl6K81OAmzc35gs8htpbXxIXgMzmbpyblpixguP1nX8jqm2o3z5hLnj0odIhUjC7q1TdIT61dx/G0MXAVEgs0TNN7KlPgxqZAHpSSG8scHXfoCskH/YKw9XrBIrI0e4D4rhwZUe728KO/RoSHLzTVhWXPQn0E/v7z2dRVZrrnUT8+71oGMUzSd+oRwGlNE11hqPqnJ1rgWzcmoRgiR/3ME22dti8J1ZVaKn+iAo/sgMpk2buuX2VWGQqnf/QTJ5bD745+14FZrofdqHZTWEKIc4IHO1tAqaPbWFZcOaGCZTkPO5iRb3NRQyLedwd1kMNsrdKy8drhJ+eIs+k1XMeM/kneTPLhbQHEFsObKimTmtABLt+s= norbert@VivoBooki"
+
+  minions:
+    - minion1
+    - minion2
+    - minion3
+
+  hostprop: [
+    {
+    "name": "minion1",
+    "ip": "192.168.122.2",
+    "mac": ""
+    },
+    {
+    "name": "minion2",
+    "ip": "192.168.122.3",
+    "mac": ""
+    },
+    {
+    "name": "minion3",
+    "ip": "192.168.122.4",
+    "mac": ""
+    }
+  ]  
+
